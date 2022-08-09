@@ -17,14 +17,12 @@
     height: auto;
     position: static;
     background-color: rgb(240, 240, 240);
-    color: rgb(0, 0, 0);
-    
+    color: rgb(0, 0, 0); 
 }
 .test{
     position: static;
     float: right;
 }
-
 .log02{
     font-size: 220%;
     font-family: Helvetica;
@@ -32,7 +30,6 @@
     text-decoration: none;
     text-decoration-style: none; 
 }
-
 .card-header .ag_new{
     float: right;
 }

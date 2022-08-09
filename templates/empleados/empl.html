@@ -4,11 +4,9 @@
         Listado de Usuarios:
         <div class="ag_new">
             <a href="{{url_for('create')}}" class="btn btn-primary">Agregar nuevo</a>
-        </div>
-        
+        </div>      
     </div>
-    
-    <table class="table table-light">
+     <table class="table table-light">
             <thead class="thead-light">
                 <tr>
                     <th>N°</th>
@@ -27,7 +25,6 @@
                     <td>
                         <img class="img-thumbnail" width="50" src="uploads/{{empleado[4] }}" alt="">                    
                     </td> <!-- #aca recupera la foto -->
-
                     <td>{{empleado[1] }}</td> <!-- #recupera el nombre, así sigue, en orden a la base de datos. -->
                     <td>{{empleado[2] }}</td>
                     <td>{{empleado[3] }}</td>

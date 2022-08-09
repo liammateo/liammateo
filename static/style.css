@@ -1,0 +1,47 @@
+*{
+    font-family: Helvetica;
+    color: dimgray;
+}
+.log01{
+    float: right;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(54, 54, 54);
+    
+}
+.menu {
+    width: 25%;
+    float: left;
+    padding: 15px;
+    border: 1px;
+    width: 15%;
+    height: auto;
+    position: static;
+    background-color: rgb(240, 240, 240);
+    color: rgb(0, 0, 0);
+    
+}
+.test{
+    position: static;
+    float: right;
+}
+
+.log02{
+    font-size: 220%;
+    font-family: Helvetica;
+    color: rgb(126, 126, 126);
+    text-decoration: none;
+    text-decoration-style: none; 
+}
+
+.card-header .ag_new{
+    float: right;
+}
+a:link { 
+    text-decoration: none;
+}
+a:visited {
+    text-decoration: none;
+}
+.card-header{
+    background-color: rgb(240, 240, 240);
+}

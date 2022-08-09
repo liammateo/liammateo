@@ -1,0 +1,49 @@
+{% include 'header.html' %}
+<div class="card">
+    <div class="card-header">
+        Listado de Usuarios:
+        <div class="ag_new">
+            <a href="{{url_for('create')}}" class="btn btn-primary">Agregar nuevo</a>
+        </div>
+        
+    </div>
+    
+    <table class="table table-light">
+            <thead class="thead-light">
+                <tr>
+                    <th>N°</th>
+                    <th>Foto</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Tipo de Usuario</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- (JINJA2) RECUPERAR INFORMACIÓN CON EL TEMPLATE, MOSTRAR INFORMACION (EMPLEADOS VIENE DE app.py) -->
+                {% for empleado in empleados %}         
+                <tr>
+                    <td>{{empleado[0] }}</td> <!-- #recupero la columna 0, que es el ID -->
+                    <td>
+                        <img class="img-thumbnail" width="50" src="uploads/{{empleado[4] }}" alt="">                    
+                    </td> <!-- #aca recupera la foto -->
+
+                    <td>{{empleado[1] }}</td> <!-- #recupera el nombre, así sigue, en orden a la base de datos. -->
+                    <td>{{empleado[2] }}</td>
+                    <td>{{empleado[3] }}</td>
+                    <td> 
+                        <a class="btn btn-warning" href="/edit/{{empleado[0]}}">Editar</a>  |  
+                        <a onclick="return confirm('¿Desea eliminar el registro?')" class="btn btn-danger" href="/destroy/{{empleado[0]}}">Eliminar</a>            
+                    </td>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+        <div class="form-group">
+            <a href="{{url_for('create')}}" class="btn btn-primary">Agregar nuevo</a> 
+        </div>
+</div>
+
+
+{% include 'footer.html' %}

@@ -1,40 +1,82 @@
 {% include 'header.html' %}
+<style>
+  #draggable { 
+  width: 800px;
+  Height: 100%;
+  margin: auto;
+  padding: 0.5em; 
+}
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#draggable" ).draggable();
+  } );
+  </script>
 
-
+<div id="draggable" class="ui-widget-content">
+  
 <form method="post" action="/store" enctype="multipart/form-data">
-    <div class="card">
-        <div class="card-header">
-            Ingresar nuevo usuario
-        </div>                
-        <div class="card-body">
-            <h5 class="card-title">Datos del Usuario:</h5>
-            <p class="card-text">
-                <div class="form-group">
-                    <label for="txtNombre">Nombre:</label>
-                    <input id="txtNombre" class="form-control" type="text" name="txtNombre">
-                </div>
-                <div class="form-group">
-                    <label for="txtCorreo">Correo:</label>
-                    <input id="txtCorreo" class="form-control" type="text" name="txtCorreo">
-                </div>
-                <div class="form-group">
-                    <label for="txtTipoUsuario">Tipo de usuario:</label>                    
-                    <select class="form-control" type="text" name="txtTipoUsuario" id="txtTipoUsuario">
-                        <option value="admin">Administrador</option>
-                        <option value="comun" selected>Comun</option>                       
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="txtFoto">Foto:</label>
-                    <input id="txtFoto" class="form-control" type="file" name="txtFoto">
-                </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-success" value="Agregar">
-                    <a href="{{url_for('empl')}}" class="btn btn-primary">Regresar</a>
-                </div>
-            </p>
-        </div>
+  <div class="card-header">
+    <div>Ingresar nuevo cliente:</div>
+    <div class="icono-cerrar-izq"></div>
+      
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-3">
+      <label for="inputZip">Codigo cliente</label>
+      <input type="text" class="form-control" id="inputZip" placeholder="Ingresar codigo para buscar">
+    </div>
+    <button type="button" class="btn btn-default">
+      <span class="glyphi"><img src="https://img.icons8.com/dotty/80/000000/search-client.png" width="36" height="36"></span> 
+    </button>
+    </div>
+  <div class="form-row">
+    <div class="form-group col-md-3">
+      <label for="inputEmail4">Nombre</label>
+      <input type="nombre" class="form-control" id="inputEmail4" placeholder="Nombre">
+    </div>
+    <div class="form-group col-md-3">
+      <label for="inputEmail4">Razon Social</label>
+      <input type="Razon Social" class="form-control" id="inputEmail4" placeholder="Razon Social">
+    </div>
+    <div class="form-group col-md-3">
+      <label for="inputPassword4">Password</label>
+      <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+    </div>
+    <div class="form-group col-md-3">
+      <label for="inputPassword4">Direccion</label>
+      <input type="direccion" class="form-control" id="inputDireccion" placeholder="Direccion">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-3">
+      <label for="inputCity">Ciudad</label>
+      <input type="text" class="form-control" id="inputCity" placeholder="Ciudad">
+    </div>
+    <div class="form-group col-md-3">
+      <label for="inputState">Provincia</label>
+      <select id="inputState" class="form-control" placeholder="Provincia">
+        <option selected>Misiones</option>
+        <option>Corrientes</option>
+        <option>Buenos Aires</option>
+      </select>
     </div>
     
+  </div>
+  <div class="form-group">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="gridCheck">
+      <label class="form-check-label" for="gridCheck">Activo</label>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Crear</button>
 </form>
+
+</div>
+ 
+
+
+
 {% include 'footer.html' %}

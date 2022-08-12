@@ -5,6 +5,12 @@ from flaskext.mysql import MySQL
 from flask import send_from_directory
 from flask_login import LoginManager
 from datetime import datetime
+from werkzeug.urls import url_parse #prueba login
+...
+from flask import Flask, redirect
+from flask_login import LoginManager
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
 import os
 
 app= Flask(__name__)
@@ -35,9 +41,7 @@ def index():
     conn.commit()
     return render_template('empleados/index.html', empleados=empleados)
 
-@app.route("/signup/", methods=["GET", "POST"])
-def show_signup_form():
-    return render_template("login.html")
+
 
 @app.route('/destroy/<int:id>')#<int:id> recibe un entero!!!
 def destroy(id):
@@ -65,7 +69,7 @@ def update(): #Función para actualizar datos de un usuario con el EDIT
     _nombre=request.form['txtNombre']
     _correo=request.form['txtCorreo']
     _tipoUser=request.form['txtTipoUsuario']
-    _foto=request.files['txtFoto']
+    #_foto=request.files['txtFoto']
     id=request.form['txtID']
     #aca agregamos a la BD lo que agregamos en el formulario
     sql="UPDATE empleados SET nombre=%s, correo=%s, tipoUsuario=%s WHERE `empleados`.`id` =%s ;" #sin 'empleados' no funciona, tener en cuenta!!!
@@ -78,22 +82,35 @@ def update(): #Función para actualizar datos de un usuario con el EDIT
     tiempo=now.strftime("%Y%M%d%H%M%S")
 
     #consultamos si hay foto mismo nombre, guardamos por fecha.
-    if _foto.filename!='':
-        nuevoNombreFoto=tiempo+_foto.filename
-        _foto.save("uploads/"+nuevoNombreFoto)        
-        cursor.execute("SELECT foto FROM empleados WHERE id=%s", id)
-        fila=cursor.fetchall()
-        os.remove(os.path.join(app.config['CARPETA'],fila[0][0]))
-        cursor.execute("UPDATE empleados SET foto=%s WHERE id=%s",(nuevoNombreFoto,id))
-        conn.commit()
-
+    #if _foto.filename!='':
+     #   nuevoNombreFoto=tiempo+_foto.filename
+      #  _foto.save("uploads/"+nuevoNombreFoto)        
+       # cursor.execute("SELECT foto FROM empleados WHERE id=%s", id)
+        #fila=cursor.fetchall()
+        #os.remove(os.path.join(app.config['CARPETA'],fila[0][0]))
+        #cursor.execute("UPDATE empleados SET foto=%s WHERE id=%s",(nuevoNombreFoto,id))
+        #conn.commit()
     cursor.execute(sql,datos)
     conn.commit()
     return redirect('/')
 
+
+
+@app.route('/inicio01') #para ir a pantalla iniciar sesión
+def inicio01():
+    return render_template('empleados/inicio01.html')
+
+@app.route('/inicio02') #para ir a pantalla iniciar sesión 02
+def inicio02():
+    return render_template('empleados/inicio02.html')
+
 @app.route('/create')
 def create():
     return render_template('empleados/create.html')
+
+@app.route('/createClientes')
+def createClientes():
+    return render_template('empleados/createClientes.html')
 
 @app.route('/empl')
 def empl():
@@ -125,25 +142,28 @@ def storage():
     _nombre=request.form['txtNombre']
     _correo=request.form['txtCorreo']
     _tipoUser=request.form['txtTipoUsuario']
-    _foto=request.files['txtFoto']
+   # _foto=request.files['txtFoto']
     #para evitar sobre escribir fotos con el mismo nombre
-    now=datetime.now() #tiempo actual
-    tiempo=now.strftime("%Y%M%d%H%M%S")
+    #now=datetime.now() #tiempo actual
+    #tiempo=now.strftime("%Y%M%d%H%M%S")
     #consultamos si hay foto mismo nombre, guardamos por fecha.
-    if _foto.filename!='':
-        nuevoNombreFoto=tiempo+_foto.filename
-        _foto.save("uploads/"+nuevoNombreFoto)
+    #if _foto.filename!='':
+     #   nuevoNombreFoto=tiempo+_foto.filename
+    #    _foto.save("uploads/"+nuevoNombreFoto)
     #aca agregamos a la BD lo que agregamos en el formulario
-    sql="INSERT INTO `empleados` (`id`, `nombre`, `correo`, `tipoUsuario`, `foto`) VALUES (NULL, %s, %s, %s, %s) ;"
+    sql="INSERT INTO `empleados` (`id`, `nombre`, `correo`, `tipoUsuario`) VALUES (NULL, %s, %s, %s) ;"
     #introducción de datos
-    datos=(_nombre,_correo,_tipoUser,nuevoNombreFoto)
+    datos=(_nombre,_correo,_tipoUser)
     #conección a base de datos y envio de datos!
     conn=mysql.connect()
     cursor=conn.cursor()
     cursor.execute(sql,datos)
     conn.commit()
     return redirect('/')
-    
+
+
+
+
 if __name__=='__main__':
     app.run(debug=True)
     

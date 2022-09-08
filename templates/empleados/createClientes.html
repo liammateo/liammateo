@@ -1,6 +1,7 @@
 {% include 'header.html' %}
 <style>
-  #draggable { 
+  
+  .draggable { 
   width: 800px;
   Height: 100%;
   margin: auto;
@@ -11,11 +12,11 @@
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
   <script>
   $( function() {
-    $( "#draggable" ).draggable();
+    $( ".draggable" ).draggable();
   } );
   </script>
 
-<div id="draggable" class="ui-widget-content">
+<div class="draggable" class="ui-widget-content" style=" border-radius: 1%; background-color: rgb(190, 190, 190);">
   
 <form method="post" action="/store" enctype="multipart/form-data">
   <div class="card-header">
@@ -72,10 +73,10 @@
     </div>
   </div>
   <button type="submit" class="btn btn-primary">Crear</button>
+  <a href="{{url_for('clientes')}}" class="btn btn-primary">Regresar</a>
 </form>
 
 </div>
- 
 
 
 

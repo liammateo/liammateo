@@ -1,42 +1,119 @@
 {% include 'header.html' %}
-<div class="card">
+<style>
+    .draggable {
+        width: 800px;
+        Height: 100%;
+        margin: auto;
+        padding: 0.5em;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script>
+    $(function () {
+        $(".draggable").draggable();
+    });
+</script>
+
+
+<div class="card x_panel">
     <div class="card-header">
-        Listado de Clientes:
-        <div class="ag_new">
-            <a href="{{url_for('create')}}" class="btn btn-primary">Agregar nuevo</a>
-        </div>        
-    </div>
-    <table class="table table-light">
-            <thead class="thead-light">
-                <tr>
-                    <th>N°</th>
-                    
-                    <th>Nombre</th>
-                    <th>Correo</th>
-                    <th>Tipo de Usuario</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- (JINJA2) RECUPERAR INFORMACIÓN CON EL TEMPLATE, MOSTRAR INFORMACION (EMPLEADOS VIENE DE app.py) -->
-                {% for empleado in empleados %}         
-                <tr>
-                    <td>{{empleado[0] }}</td> <!-- #recupero la columna 0, que es el ID -->
-                    <td>{{empleado[1] }}</td> <!-- #recupera el nombre, así sigue, en orden a la base de datos. -->
-                    <td>{{empleado[2] }}</td>
-                    <td>{{empleado[3] }}</td>
-                    <td> 
-                        <a class="btn btn-warning" href="/edit/{{empleado[0]}}">Editar</a>  |  
-                        <a onclick="return confirm('¿Desea eliminar el registro?')" class="btn btn-danger" href="/destroy/{{empleado[0]}}">Eliminar</a>            
-                    </td>
-                </tr>
-                {% endfor %}
-                
-            </tbody>
-        </table>
-        <div class="form-group">
-            <a href="{{url_for('create')}}" class="btn btn-primary">Agregar nuevo</a> 
+        Listado de Usuarios:
+        <div class="ag_new1">
+            <form class="d-flex">
+                <input class="form-control me-3" type="search" placeholder="Buscador" aria-label="Buscador">
+                <button class="btn btn-outline-success" type="submit">Buscar</button>
+            </form>
         </div>
+        <div class="ag_new2">&nbsp
+            <a href="{{url_for('create')}}" class="btn btn-primary">Agregar nuevo</a>
+        </div>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Tipo de Usuario</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- (JINJA2) RECUPERAR INFORMACIÓN CON EL TEMPLATE, MOSTRAR INFORMACION (EMPLEADOS VIENE DE app.py) -->
+            {% for empleado in empleados %}
+            <tr>
+                <td>{{empleado[0] }}</td> <!-- #recupero la columna 0, que es el ID -->
+                <td>{{empleado[1] }}</td> <!-- #recupera el nombre, así sigue, en orden a la base de datos. -->
+                <td>{{empleado[2] }}</td>
+                <td>{{empleado[3] }}</td>
+                <td>
+                    <a class="btn btn-warning" href="/edit/{{empleado[0]}}">Editar</a> |
+                    <a onclick="return confirm('¿Desea eliminar el registro?')" class="btn btn-danger"
+                        href="/destroy/{{empleado[0]}}">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+    <div class="form-group">
+        <a href="#popup" class="btn btn-primary">Agregar nuevo</a>
+    </div>
+
+
+    <div class="draggable" class="ui-widget-content">
+        <form method="post" action="/store" enctype="multipart/form-data">
+            <div id="popup" class="overlay">
+                <div id="popupBody">
+                    <div class="top-ventana">
+                        <div class="title-ventana">
+                            <h2>Clientes</h2>
+                        </div>
+                        <div class="ico-cerrar">
+                            <a href="#">&times;</a>
+                        </div>
+                    </div>
+                    <div class="body-ventana">
+                        <h4>Datos Cliente</h4>
+
+                        <label for="inputState">Razon Social</label>
+                        <input type="text" id="fname" name="firstname" placeholder=""><br>
+                        <label for="inputState">Nombre de fantasia</label>
+                        <input type="text" id="fname" name="firstname" placeholder="Nombre de fantasia">
+                        <input type="number" id="fname" name="firstname" placeholder="Cuil"><br>
+                        <div>
+                            <label for="inputState">Rubro</label>
+                            <select id="inputState" placeholder="Provincia">
+                                <option selected>Revendedor</option>
+                                <option>Consumidor Final</option>
+                                <option>Distribuidor</option>
+                                <option>Almacenamiento</option>
+                            </select>
+                        </div>
+                        <h4>Datos de Contacto</h4>
+                        <input type="tel" id="fname" name="firstname" placeholder="Telefono">
+                        <input type="email" id="fname" name="firstname" placeholder="Email"><br>
+                        <h4>Dirección</h4>
+                        <input type="text" id="fname" name="firstname" placeholder="Calle">
+                        <input type="number" id="fname" name="firstname" placeholder="Altura"><br>
+                        <input type="text" id="fname" name="firstname" placeholder="Ciudad">
+                        <input type="number" id="fname" name="firstname" placeholder="CP"><br>
+                        <input type="text" id="fname" name="firstname" placeholder="Provincia">
+                        <input type="text" id="fname" name="firstname" placeholder="Pais"><br>
+                        <h4>Dirección de Entrega</h4>
+                        <input type="text" id="fname" name="firstname" placeholder="Calle">
+                        <input type="number" id="fname" name="firstname" placeholder="Altura"><br>
+                        <input type="text" id="fname" name="firstname" placeholder="Ciudad">
+                        <input type="number" id="fname" name="firstname" placeholder="CP"><br>
+                        <input type="text" id="fname" name="firstname" placeholder="Provincia">
+                        <input type="text" id="fname" name="firstname" placeholder="Pais"><br>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 
 
